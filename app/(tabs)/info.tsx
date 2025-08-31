@@ -1,6 +1,12 @@
-import React from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import React from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { useRouter } from "expo-router";
 import {
   Activity,
   Users,
@@ -11,65 +17,102 @@ import {
   Zap,
   HelpCircle,
   ChevronRight,
-} from 'lucide-react-native';
+} from "lucide-react-native";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { theme } from '@/styles/theme';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { theme } from "@/styles/theme";
 
 const infoSections = [
   {
-    id: 'sintomas',
-    title: 'Sintomas',
-    description: 'Principais sinais e sintomas da tuberculose',
+    id: "sintomas",
+    title: "Sintomas",
+    description: "Principais sinais e sintomas da tuberculose",
     icon: Activity,
     color: theme.colors.danger,
   },
   {
-    id: 'transmissao',
-    title: 'Transmissão',
-    description: 'Como a tuberculose é transmitida',
+    id: "transmissao",
+    title: "Transmissão",
+    description: "Como a tuberculose é transmitida",
     icon: Users,
     color: theme.colors.warning,
   },
   {
-    id: 'tratamento',
-    title: 'Tratamento',
-    description: 'Medicamentos e duração do tratamento',
+    id: "diagnostico",
+    title: "Diagnóstico",
+    description: "Como a tuberculose é diagnosticada",
+    icon: Users,
+    color: theme.colors.warning,
+  },
+  {
+    id: "tratamento",
+    title: "Tratamento",
+    description: "Medicamentos e duração do tratamento",
     icon: Pill,
     color: theme.colors.success,
   },
   {
-    id: 'prevencao',
-    title: 'Prevenção',
-    description: 'Como prevenir a tuberculose',
-    icon: Shield,
-    color: theme.colors.primary,
-  },
-  {
-    id: 'autocuidado',
-    title: 'Autocuidado',
-    description: 'Cuidados pessoais durante o tratamento',
-    icon: Heart,
-    color: theme.colors.info,
-  },
-  {
-    id: 'reacoes-adversas',
-    title: 'Reações Adversas',
-    description: 'Efeitos colaterais dos medicamentos',
+    id: "reacoes-adversas",
+    title: "Reações Adversas",
+    description: "Efeitos colaterais dos medicamentos",
     icon: AlertTriangle,
     color: theme.colors.danger,
   },
   {
-    id: 'tb-hiv',
-    title: 'TB-HIV',
-    description: 'Tuberculose em pessoas com HIV',
+    id: "interacoes",
+    title: "Interações Medicamentosas",
+    description:
+      "Interações entre medicamentos antirretrovirais e tuberculostáticos",
+    icon: AlertTriangle,
+    color: theme.colors.danger,
+  },
+  {
+    id: "reacoes-tuberculose",
+    title: "Reações à Tuberculose",
+    description: "Reações adversas específicas ao tratamento da tuberculose",
+    icon: AlertTriangle,
+    color: theme.colors.danger,
+  },
+  {
+    id: "autocuidado",
+    title: "Autocuidado",
+    description: "Cuidados pessoais durante o tratamento",
+    icon: Heart,
+    color: theme.colors.info,
+  },
+  {
+    id: "prevencao",
+    title: "Prevenção",
+    description: "Como prevenir a tuberculose",
+    icon: Shield,
+    color: theme.colors.primary,
+  },
+
+  {
+    id: "tb-hiv",
+    title: "TB-HIV",
+    description: "Tuberculose em pessoas com HIV",
     icon: Zap,
     color: theme.colors.warning,
   },
   {
-    id: 'epidemiologia',
-    title: 'Epidemiologia',
-    description: 'Dados e estatísticas sobre tuberculose',
+    id: "epidemiologia",
+    title: "Epidemiologia",
+    description: "Dados e estatísticas sobre tuberculose",
+    icon: HelpCircle,
+    color: theme.colors.primary,
+  },
+  {
+    id: "manuais",
+    title: "Manuais",
+    description: "Manuais e guias sobre tuberculose",
+    icon: HelpCircle,
+    color: theme.colors.primary,
+  },
+  {
+    id: "nutricao",
+    title: "Nutrição",
+    description: "Aspectos nutricionais relacionados à tuberculose",
     icon: HelpCircle,
     color: theme.colors.primary,
   },
@@ -79,8 +122,7 @@ export default function InfoScreen() {
   const router = useRouter();
 
   const handleSectionPress = (sectionId: string) => {
-    // Para navegação futura
-    console.log(`Navigate to: /info/${sectionId}`);
+    router.push(`/info/${sectionId}` as any);
   };
 
   return (
@@ -89,7 +131,8 @@ export default function InfoScreen() {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Informações sobre Tuberculose</Text>
           <Text style={styles.headerDescription}>
-            Acesse informações detalhadas e atualizadas sobre todos os aspectos da tuberculose
+            Acesse informações detalhadas e atualizadas sobre todos os aspectos
+            da tuberculose
           </Text>
         </View>
 
@@ -105,22 +148,23 @@ export default function InfoScreen() {
                 <Card style={styles.sectionCard}>
                   <CardHeader style={styles.sectionHeader}>
                     <View style={styles.sectionIconContainer}>
-                      <View style={[
-                        styles.sectionIcon,
-                        { backgroundColor: section.color[100] }
-                      ]}>
-                        <IconComponent 
-                          color={section.color[600]} 
-                          size={24} 
-                        />
+                      <View
+                        style={[
+                          styles.sectionIcon,
+                          { backgroundColor: section.color[100] },
+                        ]}
+                      >
+                        <IconComponent color={section.color[600]} size={24} />
                       </View>
-                      <ChevronRight 
-                        color={theme.colors.muted.foreground} 
-                        size={20} 
+                      <ChevronRight
+                        color={theme.colors.muted.foreground}
+                        size={20}
                         style={styles.chevron}
                       />
                     </View>
-                    <CardTitle style={styles.sectionTitle}>{section.title}</CardTitle>
+                    <CardTitle style={styles.sectionTitle}>
+                      {section.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Text style={styles.sectionDescription}>
@@ -142,8 +186,10 @@ export default function InfoScreen() {
               <Text style={styles.warningTitle}>Importante</Text>
             </View>
             <Text style={styles.warningText}>
-              As informações apresentadas neste aplicativo são baseadas em diretrizes oficiais e têm caráter 
-              educativo. Sempre consulte um profissional de saúde para orientações específicas sobre seu tratamento.
+              As informações apresentadas neste aplicativo são baseadas em
+              diretrizes oficiais e têm caráter educativo. Sempre consulte um
+              profissional de saúde para orientações específicas sobre seu
+              tratamento.
             </Text>
           </CardContent>
         </Card>
@@ -155,7 +201,7 @@ export default function InfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   content: {
     padding: theme.spacing.md,
@@ -164,8 +210,8 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xl,
   },
   headerTitle: {
-    fontSize: theme.fontSize['2xl'],
-    fontWeight: 'bold',
+    fontSize: theme.fontSize["2xl"],
+    fontWeight: "bold",
     color: theme.colors.foreground,
     marginBottom: theme.spacing.sm,
   },
@@ -183,13 +229,13 @@ const styles = StyleSheet.create({
     borderLeftColor: theme.colors.primary.DEFAULT,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   sectionIconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   sectionIcon: {
@@ -198,7 +244,7 @@ const styles = StyleSheet.create({
     marginRight: theme.spacing.md,
   },
   chevron: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   sectionTitle: {
     fontSize: theme.fontSize.lg,
@@ -219,8 +265,8 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
   },
   warningHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: theme.spacing.sm,
   },
   warningIcon: {
@@ -231,7 +277,7 @@ const styles = StyleSheet.create({
   },
   warningTitle: {
     fontSize: theme.fontSize.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: theme.colors.warning[700],
   },
   warningText: {
